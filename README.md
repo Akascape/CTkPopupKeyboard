@@ -7,6 +7,8 @@
 - transparency effect
 - double click popup window
 
+![screenshot](https://user-images.githubusercontent.com/89206401/236622957-5e140b42-eeaa-41de-aeb3-a6d95d3023b1.png)
+
 ## Installation
 ### [<img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/Akascape/CTkPopupKeyboard?&color=white&label=Download%20Source%20Code&logo=Python&logoColor=yellow&style=for-the-badge"  width="400">](https://github.com/Akascape/CTkPopupKeyboard/archive/refs/heads/main.zip)
 
