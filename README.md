@@ -12,11 +12,11 @@
 ## Installation
 ### [<img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/Akascape/CTkPopupKeyboard?&color=white&label=Download%20Source%20Code&logo=Python&logoColor=yellow&style=for-the-badge"  width="400">](https://github.com/Akascape/CTkPopupKeyboard/archive/refs/heads/main.zip)
 
-**Download the source code, paste the `ctkpopupkeyboard` folder in the directory where your program is present.**
+**Download the source code, paste the `CTkPopupKeyboard` folder in the directory where your program is present.**
 
 ## Example Program:
 ```python
-from ctkpopupkeyboard import PopupKeyboard, PopupNumpad
+from CTkPopupKeyboard import PopupKeyboard, PopupNumpad
 import customtkinter
 
 def show_popup():
