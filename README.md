@@ -1,11 +1,51 @@
 # CTkPopupKeyboard
-**On-Screen Keyboard/Numpad widget for customtkinter app.**
+**On-Screen Keyboard/Numpad widget for customtkinter entries and textbox.**
 
 ## Features
-- Custom keyboard and numpad styles 
+- Customize keyboard and numpad styles 
 - All keyboard characters available
 - transparency effect
-- double click popup 
+- double click popup window
+
+## Installation
+### [<img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/Akascape/CTkPopupKeyboard?&color=white&label=Download%20Source%20Code&logo=Python&logoColor=yellow&style=for-the-badge"  width="400">](https://github.com/Akascape/CTkPopupKeyboard/archive/refs/heads/main.zip)
+
+**Download the source code, paste the `ctkpopupkeyboard` folder in the directory where your program is present.**
+
+## Example Program:
+```python
+from ctkpopupkeyboard import PopupKeyboard, PopupNumpad
+import customtkinter
+
+def show_popup():
+    # Disable/Enable popup
+    if switch.get()==1:
+        keyboard.disable = False
+        numpad.disable = False
+    else:
+        keyboard.disable = True
+        numpad.disable = True
+        
+root = customtkinter.CTk()
+
+text_box = customtkinter.CTkTextbox(root)
+text_box.pack(fill="both", padx=10, pady=10)
+
+# attach popup keyboard to text_box
+keyboard = PopupKeyboard(text_box)
+
+entry = customtkinter.CTkEntry(root, placeholder_text="Write Something...")
+entry.pack(fill="both", padx=10, pady=10)
+
+# attach popup keyboard to entry
+numpad = PopupNumpad(entry)
+
+switch = customtkinter.CTkSwitch(root, text="On-Screen Keyboard", command=show_popup)
+switch.pack(pady=10)
+switch.toggle()
+
+root.mainloop()
+```
 
 ## Arguments for PopupKeyboard/PopupNumpad
 | Parameter | Description |
