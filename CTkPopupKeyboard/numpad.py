@@ -67,17 +67,17 @@ class PopupNumpad(CTkToplevel):
         self._iconify()
         
     def _init_keys(self, **kwargs):
-        self.alpha = {
+        self.keys = {
             'row1' : ['7','8','9'],
             'row2' : ['4','5','6'],
             'row3' : ['1','2','3'],
             'row4' : ['.','0','◀']
             }
         
-        for row in self.alpha.keys(): 
+        for row in self.keys.keys(): 
             if row == 'row1':            
                 i = 1                     
-                for k in self.alpha[row]:
+                for k in self.keys[row]:
                     CTkButton(self.row1,
                               text=k,
                               width=self.keywidth,
@@ -87,7 +87,7 @@ class PopupNumpad(CTkToplevel):
                     i += 1
             elif row == 'row2':
                 i = 2
-                for k in self.alpha[row]:
+                for k in self.keys[row]:
                     CTkButton(self.row2,
                               text=k,
                               width=self.keywidth,
@@ -98,7 +98,7 @@ class PopupNumpad(CTkToplevel):
                 i = 2
             elif row == 'row3':
                 i = 2
-                for k in self.alpha[row]:
+                for k in self.keys[row]:
                     CTkButton(self.row3,
                               text=k,
                               width=self.keywidth,
@@ -109,7 +109,7 @@ class PopupNumpad(CTkToplevel):
 
             elif row == 'row4':
                 i = 2
-                for k in self.alpha[row]:
+                for k in self.keys[row]:
                     CTkButton(self.row4,
                               text=k,
                               width=self.keywidth,
@@ -156,4 +156,3 @@ class PopupNumpad(CTkToplevel):
                 self.attach.insert(INSERT, k)
         else:
             self.attach.insert(INSERT, k)
-
