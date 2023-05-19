@@ -17,7 +17,6 @@ class PopupKeyboard(CTkToplevel):
         super().__init__(takefocus=0)
         
         self.focus()
-        self.attributes('-alpha', 0)
         self.corner = corner
         self.disable = True
         
