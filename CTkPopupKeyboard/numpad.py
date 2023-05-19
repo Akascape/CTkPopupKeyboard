@@ -16,20 +16,26 @@ class PopupNumpad(CTkToplevel):
         super().__init__(takefocus=1)
         
         self.focus()
-        self.overrideredirect(True)
-        self.attributes('-alpha', alpha)
+        self.attributes('-alpha', 0)
         self.corner = corner
+        self.disable = True
         
         if sys.platform.startswith("win"):
+            self.overrideredirect(True)
             self.transparent_color = self._apply_appearance_mode(self._fg_color)
             self.attributes("-transparentcolor", self.transparent_color)
         elif sys.platform.startswith("darwin"):
+            self.overrideredirect(True)
+            self.bind('<Configure>', lambda e: self.withdraw() if not self.disable else None, add="+")
             self.transparent_color = 'systemTransparent'
             self.attributes("-transparent", True)
         else:
+            self.attributes("-type", "splash")
             self.transparent_color = '#000001'
             self.corner = 0
-    
+            self.withdraw()
+            
+        self.disable = False  
         self.fg_color = ThemeManager.theme["CTkFrame"]["fg_color"] if fg_color is None else fg_color
         self.frame = CTkFrame(self, bg_color=self.transparent_color, fg_color=self.fg_color, corner_radius=self.corner, border_width=2)
         self.frame.pack(expand=True, fill="both")
@@ -54,7 +60,6 @@ class PopupNumpad(CTkToplevel):
         self.row4.grid(row=4, column=0, pady=(0,10))
     
         self._init_keys(**kwargs)
-        self.disable = False
     
         # hide/show PopupNumpad
         self.attach.bind('<Key>', lambda e: self.withdraw() if not self.disable else None, add="+")
@@ -65,6 +70,7 @@ class PopupNumpad(CTkToplevel):
         self.x = x
         self.y = y
         self._iconify()
+        self.attributes('-alpha', alpha)
         
     def _init_keys(self, **kwargs):
         self.keys = {
@@ -156,3 +162,4 @@ class PopupNumpad(CTkToplevel):
                 self.attach.insert(INSERT, k)
         else:
             self.attach.insert(INSERT, k)
+

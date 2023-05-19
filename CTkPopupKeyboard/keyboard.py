@@ -17,20 +17,28 @@ class PopupKeyboard(CTkToplevel):
         super().__init__(takefocus=0)
         
         self.focus()
-        self.overrideredirect(True)
-        self.attributes('-alpha', alpha)
+        self.attributes('-alpha', 0)
         self.corner = corner
+        self.disable = True
         
         if sys.platform.startswith("win"):
+            self.overrideredirect(True)
             self.transparent_color = self._apply_appearance_mode(self._fg_color)
             self.attributes("-transparentcolor", self.transparent_color)
         elif sys.platform.startswith("darwin"):
+            self.overrideredirect(True)
+            self.bind('<Configure>', lambda e: self.withdraw() if not self.disable else None, add="+")
             self.transparent_color = 'systemTransparent'
             self.attributes("-transparent", True)
+            if not text_color:
+                text_color = "black"
         else:
+            self.attributes("-type", "splash")
             self.transparent_color = '#000001'
             self.corner = 0
-
+            self.withdraw()
+            
+        self.disable = False
         self.fg_color = ThemeManager.theme["CTkFrame"]["fg_color"] if fg_color is None else fg_color
         self.frame = CTkFrame(self, bg_color=self.transparent_color, fg_color=self.fg_color, corner_radius=self.corner, border_width=2)
         self.frame.pack(expand=True, fill="both")
@@ -42,7 +50,6 @@ class PopupKeyboard(CTkToplevel):
         self.textcolor = self._apply_appearance_mode(ThemeManager.theme["CTkLabel"]["text_color"]) if text_color is None else text_color
         self.hovercolor = self._apply_appearance_mode(ThemeManager.theme["CTkButton"]["hover_color"]) if hover_color is None else hover_color
         self.command = command
-        
         self.resizable(width=False, height=False)
         self.transient(self.master)
 
@@ -65,7 +72,6 @@ class PopupKeyboard(CTkToplevel):
         self.row5_1.grid(row=5, column=0, pady=(0,5))
     
         self._init_keys(**kwargs)
-        self.disable = False
         
         # hide/show PopupKeyboard
         self.attach.bind('<Key>', lambda e: self.withdraw() if not self.disable else None, add="+")
@@ -76,6 +82,7 @@ class PopupKeyboard(CTkToplevel):
         self.x = x
         self.y = y
         self._iconify()
+        self.attributes('-alpha', alpha)
         
     def _init_keys(self, **kwargs):
         self.keys = {
@@ -104,6 +111,8 @@ class PopupKeyboard(CTkToplevel):
                            height=self.keyheight,
                            bg=self.keycolor,
                            fg=self.textcolor,
+                           highlightthickness=0,
+                           borderwidth=1,
                            activebackground=self.hovercolor,
                            command=lambda k=k: self._attach_key_press(k), **kwargs).grid(row=0,column=i)
                     i += 1
@@ -115,6 +124,8 @@ class PopupKeyboard(CTkToplevel):
                            height=self.keyheight,
                            bg=self.keycolor,
                            fg=self.textcolor,
+                           highlightthickness=0,
+                           borderwidth=1,
                            activebackground=self.hovercolor,
                            command=lambda k=k: self._attach_key_press(k), **kwargs).grid(row=0,column=i)
                     i += 1
@@ -127,6 +138,8 @@ class PopupKeyboard(CTkToplevel):
                            height=self.keyheight,
                            bg=self.keycolor,
                            fg=self.textcolor,
+                           highlightthickness=0,
+                           borderwidth=1,
                            activebackground=self.hovercolor,
                            command=lambda k=k: self._attach_key_press(k), **kwargs).grid(row=0,column=i)
                     i += 1
@@ -138,6 +151,8 @@ class PopupKeyboard(CTkToplevel):
                            height=self.keyheight,
                            bg=self.keycolor,
                            fg=self.textcolor,
+                           highlightthickness=0,
+                           borderwidth=1,
                            activebackground=self.hovercolor,
                            command=lambda k=k: self._attach_key_press(k), **kwargs).grid(row=0,column=i)
                     i += 1
@@ -150,6 +165,8 @@ class PopupKeyboard(CTkToplevel):
                            height=self.keyheight,
                            bg=self.keycolor,
                            fg=self.textcolor,
+                           highlightthickness=0,
+                           borderwidth=1,
                            activebackground=self.hovercolor,
                            command=lambda k=k: self._attach_key_press(k), **kwargs).grid(row=0,column=i)
                     i += 1
@@ -161,6 +178,8 @@ class PopupKeyboard(CTkToplevel):
                            height=self.keyheight,
                            bg=self.keycolor,
                            fg=self.textcolor,
+                           highlightthickness=0,
+                           borderwidth=1,
                            activebackground=self.hovercolor,
                            command=lambda k=k: self._attach_key_press(k), **kwargs).grid(row=0,column=i)
                     i += 1
@@ -173,6 +192,8 @@ class PopupKeyboard(CTkToplevel):
                            height=self.keyheight,
                            bg=self.keycolor,
                            fg=self.textcolor,
+                           highlightthickness=0,
+                           borderwidth=1,
                            activebackground=self.hovercolor,
                            command=lambda k=k: self._attach_key_press(k), **kwargs).grid(row=0,column=i)
                     i += 1
@@ -184,6 +205,8 @@ class PopupKeyboard(CTkToplevel):
                            height=self.keyheight,
                            bg=self.keycolor,
                            fg=self.textcolor,
+                           highlightthickness=0,
+                           borderwidth=1,
                            activebackground=self.hovercolor,
                            command=lambda k=k: self._attach_key_press(k), **kwargs).grid(row=0,column=i)
                     i += 1
@@ -197,6 +220,8 @@ class PopupKeyboard(CTkToplevel):
                                height=self.keyheight,
                                bg=self.keycolor,
                                fg=self.textcolor,
+                               highlightthickness=0,
+                               borderwidth=1,
                                activebackground=self.hovercolor,
                                command=lambda k=k: self._attach_key_press(k), **kwargs).grid(row=0,column=i)
                     else:
@@ -206,6 +231,8 @@ class PopupKeyboard(CTkToplevel):
                                height=self.keyheight,
                                bg=self.keycolor,
                                fg=self.textcolor,
+                               highlightthickness=0,
+                               borderwidth=1,
                                activebackground=self.hovercolor,
                                command=lambda k=k: self._attach_key_press(k), **kwargs).grid(row=0,column=i)
                     i += 1
@@ -218,6 +245,8 @@ class PopupKeyboard(CTkToplevel):
                                height=self.keyheight,
                                bg=self.keycolor,
                                fg=self.textcolor,
+                               highlightthickness=0,
+                               borderwidth=1,
                                activebackground=self.hovercolor,
                                command=lambda k=k: self._attach_key_press(k), **kwargs).grid(row=0,column=i)
                     else:
@@ -227,6 +256,8 @@ class PopupKeyboard(CTkToplevel):
                                height=self.keyheight,
                                bg=self.keycolor,
                                fg=self.textcolor,
+                               highlightthickness=0,
+                               borderwidth=1,
                                activebackground=self.hovercolor,
                                command=lambda k=k: self._attach_key_press(k), **kwargs).grid(row=0,column=i)
                     i += 1
@@ -285,7 +316,8 @@ class PopupKeyboard(CTkToplevel):
                 self.row3_2.grid(row=3, column=0, padx=5)
                 self.row4_2.grid(row=4, column=0)
                 self.row5_2.grid(row=5, column=0, pady=(0,5))
-        
+            self.focus_set()
+            self.update()
         elif k == ' space ':
             self.attach.insert(END, ' ')
         elif k == '◀':
